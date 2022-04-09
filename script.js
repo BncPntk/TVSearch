@@ -1,13 +1,17 @@
 
 // Elements
+const TvSearch = document.querySelector('#TvSearch');
 const form = document.querySelector('#searchForm');
 const container = document.querySelector('.container');
 const row = document.querySelector('.row-for-images');
 const collapse = document.querySelector('#collapse');
-// const searchBtn = document.querySelector('#searchBtn');
+
+const pBodyTitle = document.querySelector('#pBodyTitle');
+const pBodyGenre = document.querySelector('#pBodyGenre');
+const pBodyRating = document.querySelector('#pBodyRating');
+const pBodyRunning = document.querySelector('#pBodyRunning');
 // End of Elements
 let dataArr = [];
-
 let dataStr = '';
 
 let res = '';
@@ -19,6 +23,7 @@ form.addEventListener('submit', async (e) => {
     // reset data array
     dataArr = [];
     row.innerHTML = '';
+    deleteData();
     displayResults(res.data);
     form.elements.searchField.value = '';
     getData(res);
@@ -27,6 +32,10 @@ form.addEventListener('submit', async (e) => {
 
 })
 
+// Delete show data from container on body click
+document.body.addEventListener('click', () => {
+    deleteData();
+});
 
 const getData = function (res) {
 
@@ -36,12 +45,13 @@ const getData = function (res) {
         nameStr = `${res.data[i].show.name}`;
         genreStr = `${res.data[i].show.genres}`;
         ratingStr = `${typeof res.data[i].show.rating.average === 'number' ? res.data[i].show.rating.average : 'No ratings available'}`;
-        statusStr = `${res.data[i].show.status === 'Running' ? 'Yes' : 'No'}`;
+        statusStr = `${res.data[i].show.status === 'Running' ? 'Running' : 'Ended'}`;
         dataStr = `${idStr};${nameStr};${genreStr};${ratingStr};${statusStr}`;
         // push show datas to an array
         dataArr.push(dataStr)
     }
 }
+
 
 const displayResults = (show) => {
     for (let result of show) {
@@ -56,24 +66,20 @@ const displayResults = (show) => {
         }
     }
 }
-
-
 const showDetails = function () {
     if (document.getElementsByClassName('imageTile')) {
-
         const imageTile = document.querySelectorAll('img');
         for (let i = 0; i < imageTile.length; i++) {
 
 
             imageTile[i].addEventListener('click', () => {
                 deleteData();
-                console.log('delete');
                 let showData = dataArr[i].split(';');
 
-
+                // TODO replace , to ' ' in genres
                 appendData(showData[1], showData[2], showData[3], showData[4]);
-                console.log('add');
 
+                TvSearch.scrollIntoView({ behavior: "smooth", inline: "start" });
 
             })
         }
@@ -85,19 +91,24 @@ const showDetails = function () {
 
 
 const appendData = (stitle, sgenre, srating, srunning) => {
-    let title = document.createElement('p')
-    let genre = document.createElement('p')
-    let rating = document.createElement('p')
-    let running = document.createElement('p')
+    let title = document.createElement('span')
+    let genre = document.createElement('span')
+    let rating = document.createElement('span')
+    let running = document.createElement('span')
     title.classList.add('pTitle');
     genre.classList.add('pGenre');
     rating.classList.add('pRating');
     running.classList.add('pRunning');
-    title.innerHTML = stitle;
-    genre.innerHTML = sgenre;
+    // title.innerHTML = stitle;
+    // genre.innerHTML = sgenre;
     rating.innerHTML = srating;
     running.innerHTML = srunning;
-    collapse.append(title, genre, rating, running);
+    // adding space to categs
+
+    pBodyTitle.innerHTML = `Title: ${title.innerHTML = stitle}`;
+    pBodyGenre.innerHTML = `Genre: ${genre.innerHTML = sgenre}`;
+    pBodyRating.innerHTML = `Average Rating: ${rating.innerHTML = srating}`;
+    pBodyRunning.innerHTML = `Status: ${running.innerHTML = srunning}`;
     // title.classList.add('addedShowData', 'collapse', 'collapse-horizontal');
 
 
@@ -115,4 +126,5 @@ const deleteData = () => {
     DeleteRating?.remove();
     DeleteRunning?.remove();
 }
+
 

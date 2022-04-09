@@ -13,30 +13,84 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+    <!-- Bootstrap icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
+    />
     <!-- Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <title>Hello, world!</title>
+    <link rel="icon" href="icon.ico" />
+    <title>TV Search</title>
   </head>
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <div class="container-fluid">
       <div class="row">
-        <h1 class="display-5 text-center my-4">TV Search</h1>
+        <h1 id="TvSearch" class="display-3 text-center my-5">
+          <i class="bi bi-tv"></i>
+          TV Search
+        </h1>
 
         <form id="searchForm" class="col-lg-10 offset-lg-1">
           <div class="input-group">
-            <input type="text" class="form-control" name="searchField" placeholder="Title" />
-            <button class="input-group-text btn btn-lg bg-warning text-light" id="searchBtn">Search</button>
+            <input
+              type="text"
+              class="form-control shadow-none"
+              name="searchField"
+              placeholder="Enter title"
+            />
+            <button class="input-group-text btn btn-lg bg-warning text-light shadow-none" id="searchBtn">
+              Search
+            </button>
           </div>
         </form>
       </div>
-      <div class="container">
-        <div style="min-height: 120px">
-          <div class="collapse collapse-horizontal" id="collapseWidthExample">
-            <div id="collapse" class="card card-body" style="width: 300px"></div>
+
+      <div id="noise" class="container">
+        <div class="row mt-5">
+          <div class="col-4 offset-4 d-flex flex-row justify-content-center">
+            <div class="collapse collapse-horizontal text-center" id="collapseWidthExample">
+              <div id="collapse" class="card card-body" style="width: 300px">
+                <p id="pBodyTitle" class=""></p>
+                <p id="pBodyGenre" class=""></p>
+                <p id="pBodyRating" class=""></p>
+                <p id="pBodyRunning" class=""></p>
+              </div>
+            </div>
           </div>
+          <div class="row row-for-images imageTile"></div>
         </div>
-        <div class="row row-for-images imageTile"></div>
       </div>
+    </div>
+
+    <!-- footer -->
+    <div class="container-fluid mt-auto footerDiv">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4">
+        <div class="col-md-4 d-flex align-items-center">
+          <a href="#TvSearch" class="text-decoration-none mx-2">&copy; TV Search</a>
+        </div>
+
+        <ul class="nav col-md-4 text-center list-unstyled d-flex flex-column">
+          <li class="ms-3">
+            <a class="text-muted text-decoration-none" href="#">
+              <i class="bi bi-twitter"></i>
+              <span>@tvsearch</span>
+            </a>
+          </li>
+          <li class="ms-3">
+            <a class="text-muted text-decoration-none" href="#">
+              <i class="bi bi-instagram"></i>
+              <span>@tvsearch</span>
+            </a>
+          </li>
+          <li class="ms-3">
+            <a class="text-muted text-decoration-none" href="#">
+              <i class="bi bi-facebook"></i>
+              <span>@tvsearch</span>
+            </a>
+          </li>
+        </ul>
+      </footer>
     </div>
 
     <script src="script.js"></script>
